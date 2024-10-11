@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        #chatbox {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #messages {
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #userInput {
+            width: calc(100% - 50px);
+        }
+    </style>
+</head>
+<body>
+
+<div id="chatbox">
+    <div id="messages"></div>
+    <input type="text" id="userInput" placeholder="Wpisz wiadomość..." />
+    <button id="sendButton">Wyślij</button>
+</div>
+
+<script>
+    const messagesDiv = document.getElementById('messages');
+    const userInput = document.getElementById('userInput');
+    const sendButton = document.getElementById('sendButton');
+
+    sendButton.addEventListener('click', () => {
+        const userMessage = userInput.value;
+        if (!userMessage) return;
+
+        // Dodaj wiadomość użytkownika do chatboxa
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.textContent = `Ty: ${userMessage}`;
+        messagesDiv.appendChild(userMessageDiv);
+
+        // Odpowiedź bota (możesz tu dodać logikę AI)
+        const botResponse = getBotResponse(userMessage);
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.textContent = `Bot: ${botResponse}`;
+        messagesDiv.appendChild(botMessageDiv);
+
+        // Wyczyść pole wejściowe
+        userInput.value = '';
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Przewiń na dół
+    });
+
+    function getBotResponse(input) {
+        // Prosta logika odpowiedzi bota
+        if (input.toLowerCase() === 'cześć') {
+            return 'Cześć! Jak mogę Ci pomóc?';
+        } else {
+            return 'Przepraszam, nie rozumiem. Czy możesz spróbować inaczej?';
+        }
+    }
+</script>
+
+</body>
+</html>
